@@ -158,3 +158,38 @@ class InstanceEval(object):
         logger.info('thing PQ / RQ / SQ : {:.3f} / {:.3f} / {:.3f}'.format(thing_PQ*100, thing_RQ*100, thing_SQ*100))
         logger.info('stuff PQ / RQ / SQ : {:.3f} / {:.3f} / {:.3f}'.format(stuff_PQ*100, stuff_RQ*100, stuff_SQ*100))
         return sPQ*100, sRQ*100, sSQ*100
+    
+    def get_eval_f1score(self, logger):
+        if self.gpu_num>1:
+            _tensor = np.stack([self.tp_classes,
+                               self.tp_classes_values,
+                               self.fp_classes,
+                               self.fn_classes])
+            _tensor = torch.from_numpy(_tensor).to("cuda")
+            _tensor_list = [torch.full_like(_tensor,0) for _ in range(self.gpu_num)]
+            dist.barrier()
+            dist.all_gather(_tensor_list,_tensor)
+            all_tensor = torch.full_like(_tensor,0)
+            for tensor_ in _tensor_list:
+                all_tensor += tensor_
+
+            all_tensor = all_tensor.cpu().numpy()
+            self.tp_classes, self.tp_classes_values, \
+                self.fp_classes, self.fn_classes= all_tensor
+
+       # each class
+        PRECISION = self.tp_classes / (self.tp_classes + self.fp_classes + 1e-4)
+        RECALL = self.tp_classes / (self.tp_classes + self.fn_classes + 1e-4)
+        F1_SCORE = (2*PRECISION*RECALL) / (PRECISION + RECALL + 1e-4)
+        
+
+        #total
+        sPRECISION = sum(self.tp_classes) / (sum(self.tp_classes) + sum(self.fp_classes) + 1e-4)
+        sRECALL = sum(self.tp_classes) / (sum(self.tp_classes )+ sum(self.fn_classes) + 1e-4)
+        sF1_SCORE = (2*sPRECISION*sRECALL) / (sPRECISION + sRECALL + 1e-4)
+        
+        for i, name in enumerate(self._class_names):
+            logger.info('Class_{}  F1:[{:.2%}], Precision:[{:.2%}], Recall:[{:.2%}]'.format(name,F1_SCORE[i],PRECISION[i],RECALL[i]))
+
+        logger.info('Total F1:[{:.2%}], Precision:[{:.2%}], Recall:[{:.2%}]'.format(sF1_SCORE, sPRECISION, sRECALL))
+        return sRECALL, sPRECISION, sF1_SCORE

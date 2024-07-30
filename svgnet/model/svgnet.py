@@ -81,6 +81,7 @@ class SVGNet(nn.Module):
         stage_list.update({"tgt":targets})
         
         stage_list = self.backbone(stage_list)
+        
         outputs = self.decoder(stage_list)
         
         model_outputs = {}

@@ -26,7 +26,6 @@ def get_subscene_features(stage_n, stage_i, stage_list, x, nstride, kr=None, ext
         kr = torch.prod(nstride[:i])
         
     new_feat = pointops.interpolation(p_from.contiguous(), p_to.contiguous(), x.contiguous(), o_from, o_to,k=kr)
-    #print(new_feat.shape)
     return new_feat
 
 def get_subscene_features2(stage_n, stage_i, stage_list, x, nstride, kr=None, extend=False, return_neighbor=False):

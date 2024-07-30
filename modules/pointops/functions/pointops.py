@@ -1,5 +1,7 @@
 from typing import Tuple
 
+import numpy as np
+
 import torch
 from torch.autograd import Function
 import torch.nn as nn
@@ -124,6 +126,9 @@ class KNNQuery(Function):
         idx = torch.cuda.IntTensor(m, nsample).zero_()
         dist2 = torch.cuda.FloatTensor(m, nsample).zero_()
         pointops_cuda.knnquery_cuda(m, nsample, xyz, new_xyz, offset, new_offset, idx, dist2)
+        # torch.cuda.synchronize()
+        # print(nsample)
+        # print(idx, dist2)
         return idx, torch.sqrt(dist2)
 
 
@@ -265,8 +270,14 @@ def interpolation(xyz, new_xyz, feat, offset, new_offset, k=3):
     weight = dist_recip / norm  # (n, 3)
 
     new_feat = torch.cuda.FloatTensor(new_xyz.shape[0], feat.shape[1]).zero_()
+    # new_feat = torch.zeros(new_xyz.shape[0], feat.shape[1]).cuda()
+    # idx_cpu = idx.cpu().numpy()
     for i in range(k):
-        new_feat += feat[idx[:, i].long(), :] * weight[:, i].unsqueeze(-1)
+        # print(np.all(idx_cpu[:, i] < len(feat)))
+        new_feat += feat[idx[:, i].long(), :] * weight[:, i].unsqueeze(-1)        
+        # print(new_feat.shape)
+        torch.cuda.synchronize()
+
     return new_feat
 
 

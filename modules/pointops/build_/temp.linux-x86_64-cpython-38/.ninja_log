@@ -1,0 +1,14 @@
+# ninja log v5
+2	5317	1720423618572152768	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/sampling/sampling_cuda.o	f2e70c4ce256927b
+1	5384	1720423618640151856	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/interpolation/interpolation_cuda.o	b53cf57c63b107a
+1	5386	1720423618644151805	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/aggregation/aggregation_cuda.o	c6c5e899b19e4748
+1	5424	1720423618680151320	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/grouping/grouping_cuda.o	f7e5d617a44ce898
+2	5442	1720423618700151054	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/subtraction/subtraction_cuda.o	9d2becad076f0492
+1	5490	1720423618748150409	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/knnquery/knnquery_cuda.o	b90a9ea0007852d6
+2	15185	1720423628432020639	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/pointops_api.o	59f55fe7be581fa9
+1	15501	1720424249991752710	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/grouping/grouping_cuda_kernel.o	93753d1ef0294c39
+2	15522	1720424250011752443	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/subtraction/subtraction_cuda_kernel.o	cce2a498f4a7fd88
+1	15624	1720424250115751066	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/knnquery/knnquery_cuda_kernel.o	c3030a6a1eef680b
+1	15625	1720424250115751066	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/interpolation/interpolation_cuda_kernel.o	65fa09c83413a44a
+1	15670	1720424250159750483	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/aggregation/aggregation_cuda_kernel.o	e1c7dbc95cc48daf
+2	15848	1720424250335748157	/home/jesse/Project/SymPoint/modules/pointops/build/temp.linux-x86_64-cpython-38/src/sampling/sampling_cuda_kernel.o	6d459ae176473462

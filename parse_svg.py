@@ -16,9 +16,9 @@ def parse_args():
     Arguments
     '''
     parser = argparse.ArgumentParser(description='')
-    parser.add_argument('--split', type=str, default="test",
+    parser.add_argument('--split', type=str, default="split",
                         help='the split of dataset')
-    parser.add_argument('--data_dir', type=str, default="./dataset/test/test/svg_gt",
+    parser.add_argument('--data_dir', type=str, default="./dataset/split/test/svg_gt",
                         help='save the downloaded data')
     args = parser.parse_args()
     return args

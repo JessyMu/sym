@@ -1,0 +1,5 @@
+*.svg
+test.dxf
+*.out
+data/
+dataset/
